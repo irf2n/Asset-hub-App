@@ -19,5 +19,5 @@ import com.allocator.asset_hub.entity.AssetAllocation;
 public interface AssetAllocationRepository extends JpaRepository<AssetAllocation, Long> {
 
 	List<AssetAllocation> findByUserId(Long userId);
-	Optional<AssetAllocation> findByAssetIdAndStatus(Long assetId, AllocationStatus status)
+	Optional<AssetAllocation> findByAssetIdAndStatus(Long assetId, AllocationStatus status);
 }
