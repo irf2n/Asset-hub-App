@@ -4,12 +4,18 @@
 package com.allocator.asset_hub.dto;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * 
  */
 public class AllocationRequestDto {
+@NotNull(message = "User ID is required")
 private Long userId;
+@NotNull(message = "Asset ID is required")
 private Long assetId;
+@Future(message = "Return date must be in the future")
 private LocalDate returnDate;
 private String notes;
 // default constructor

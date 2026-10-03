@@ -16,6 +16,8 @@ import com.allocator.asset_hub.dto.AllocationRequestDto;
 import com.allocator.asset_hub.dto.AllocationResponseDto;
 import com.allocator.asset_hub.service.AllocationService;
 
+import jakarta.validation.Valid;
+
 /**
  * 
  */
@@ -29,7 +31,7 @@ public AllocationController(AllocationService allocationService) {
 }
 // method for end point allocation creation 
 @PostMapping
-public ResponseEntity<AllocationResponseDto> createAllocation(@RequestBody AllocationRequestDto requestDto){
+public ResponseEntity<AllocationResponseDto> createAllocation(@Valid @RequestBody AllocationRequestDto requestDto){
 	AllocationResponseDto response = allocationService.allocateAsset(requestDto);
 	return new ResponseEntity<>(response, HttpStatus.CREATED);
 }
