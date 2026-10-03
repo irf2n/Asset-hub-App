@@ -14,6 +14,8 @@ import com.allocator.asset_hub.entity.Asset;
 import com.allocator.asset_hub.entity.AssetAllocation;
 import com.allocator.asset_hub.entity.AssetStatus;
 import com.allocator.asset_hub.entity.User;
+import com.allocator.asset_hub.exception.InvalidAllocationStateException;
+import com.allocator.asset_hub.exception.ResourceNotFoundException;
 import com.allocator.asset_hub.repository.AssetAllocationRepository;
 import com.allocator.asset_hub.repository.AssetRepository;
 import com.allocator.asset_hub.repository.UserRepository;
@@ -50,9 +52,9 @@ public class AllocationService {
 		
 	    
 		Asset asset = assetRepo.findById(requestDto.getAssetId())
-				.orElseThrow(() -> new RuntimeException("Asset not found with id: " + requestDto.getAssetId()));
+				.orElseThrow(() -> new ResourceNotFoundException("Asset not found with id: " + requestDto.getAssetId()));
 		if(asset.getStatus() != AssetStatus.AVAILABLE) {
-			throw new RuntimeException("Asset is not available for allocation. Current status: " + asset.getStatus());
+			throw new InvalidAllocationStateException("Asset is not available for allocation. Current status: " + asset.getStatus());
 		} else { asset.setStatus(AssetStatus.ALLOCATED);
 		}
 		assetRepo.save(asset);
@@ -81,12 +83,12 @@ public class AllocationService {
 	
 	// method for return operation 
 	@Transactional
-	public AllocationResponseDto returnAsset(Long allocationId) throws Exception {
+	public AllocationResponseDto returnAsset(Long allocationId)  {
 		AssetAllocation allocation = allocationRepo.findById(allocationId)
-		.orElseThrow(() -> new RuntimeException("Allocation record not found with the id: " + allocationId));
+		.orElseThrow(() -> new ResourceNotFoundException("Allocation record not found with the id: " + allocationId));
 		
 		if(allocation.getStatus() != AllocationStatus.ACTIVE) {
-			 throw new RuntimeException ("Cannot return asset. Asset is not Active. Current status: " + allocation.getStatus());
+			 throw new InvalidAllocationStateException ("Cannot return asset. Asset is not Active. Current status: " + allocation.getStatus());
 		}
 		// set return date
 		allocation.setReturnDate(LocalDate.now());
