@@ -46,7 +46,7 @@ public class AllocationService {
 	public AllocationResponseDto allocateAsset(AllocationRequestDto requestDto) {
 		
 		User user = userRepo.findById(requestDto.getUserId())
-				.orElseThrow(() -> new RuntimeException("User not found with id: " + requestDto.getUserId()));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + requestDto.getUserId()));
 		
 	    
 		Asset asset = assetRepo.findById(requestDto.getAssetId())
