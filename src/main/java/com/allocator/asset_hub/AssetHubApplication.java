@@ -1,7 +1,9 @@
 package com.allocator.asset_hub;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.allocator.asset_hub.entity.Asset;
 import com.allocator.asset_hub.entity.AssetCategory;
 import com.allocator.asset_hub.entity.AssetStatus;
@@ -14,8 +16,8 @@ import com.allocator.asset_hub.repository.UserRepository;
 
 @SpringBootApplication
 public class AssetHubApplication implements CommandLineRunner {
-	
-	// 1. Declare the repository dependencies
+
+    // 1. Declare the repository dependencies
     private final DepartmentRepository departmentRepo;
     private final UserRepository userRepo;
     private final AssetCategoryRepository categoryRepo;
@@ -35,6 +37,7 @@ public class AssetHubApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(AssetHubApplication.class, args);
     }
+
     @Override
     public void run(String... args) throws Exception {
         System.out.println(">>> SEEDING BASELINE DATA FOR API TESTING <<<");
@@ -53,6 +56,4 @@ public class AssetHubApplication implements CommandLineRunner {
 
         System.out.println(">>> SEEDING COMPLETE: User ID = " + john.getId() + ", Asset ID = " + thinkpad.getId() + " <<<");
     }
-    
-
 }

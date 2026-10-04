@@ -11,7 +11,7 @@ import jakarta.persistence.*;
  * 
  */
 @Entity
-@Table(name = "asset_allocation")
+@Table(name = "asset_allocations")
 public class AssetAllocation {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
